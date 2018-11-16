@@ -3,7 +3,7 @@
 import time,json,os,csv
 from Utils import *
 import datetime
-from enums import PlatformDataType, Symbol, Platform
+from common.enums import PlatformDataType, Symbol, Platform
 
 
 
@@ -58,6 +58,9 @@ def save_to_csv(symbol):
     r_lest = []
     try:
         result = get_kline(symbol)
+        result = get_kline(symbol)
+        result = get_kline(symbol)
+        result = get_kline(symbol)
 
         if result["status"] == "ok":
             json_result = result["data"]
@@ -103,6 +106,7 @@ def get_symbols_kline():
                    'xrpusdt']
     for symbol in symbol_list:
         save_to_csv(symbol)
+
 
 if __name__ == '__main__':
     #print(get_kline("eosbtc", "1min", size=2000))

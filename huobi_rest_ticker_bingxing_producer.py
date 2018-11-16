@@ -6,7 +6,7 @@ from Utils import *
 import os, time, sys, csv
 import threading
 from sender import MqSender
-from enums import PlatformDataType, Symbol, Platform
+from common.enums import PlatformDataType, Symbol, Platform
 
 # 获取 Market Detail 24小时成交量数据
 def get_detail(symbol):
@@ -22,15 +22,15 @@ def get_detail(symbol):
 
 
 #将消息发送到mq
-def send_to_mq(msg):
-    try:
-        #print("send_to_mq start time: ")
-        #print(time.strftime("%Y%m%d %H:%M:%S"))
-        sender.send(str(msg))
-        #print("ok")
-
-    except Exception as e:
-        print(str(e))
+# def send_to_mq(msg):
+#     try:
+#         #print("send_to_mq start time: ")
+#         #print(time.strftime("%Y%m%d %H:%M:%S"))
+#         sender.send(str(msg))
+#         #print("ok")
+#
+#     except Exception as e:
+#         print(str(e))
 
 def save_to_csv(json_result):
     try:

@@ -7,7 +7,7 @@ import sys,os,csv,threading
 #from send_mail import *
 from sender import MqSender
 
-from enums import PlatformDataType, Symbol, Platform
+from common.enums import PlatformDataType, Symbol, Platform
 #将消息发送到mq
 def send_to_mq(msg):
     try:

@@ -8,7 +8,7 @@ import sys,os,csv
 import csv
 import threading
 from sender import MqSender
-from enums import PlatformDataType, Symbol, Platform
+from common.enums import PlatformDataType, Symbol, Platform
 #将消息发送到mq
 def send_to_mq(msg):
     try:
@@ -62,6 +62,7 @@ def save_to_csv(json_result):
                 csv_writer.writerow(line)
     except Exception as e:
         print(str(e))
+
 
 if __name__ == '__main__':
     sender = MqSender("huobi", "trade")

@@ -7,7 +7,7 @@ import sys, os
 import threading
 from sender import MqSender
 import operator as op
-from enums import PlatformDataType, Symbol, Platform
+from common.enums import PlatformDataType, Symbol, Platform
 #from send_mail import *
 
 #将消息发送到mq

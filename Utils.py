@@ -25,12 +25,12 @@ TRADE_URL = "https://api.huobi.pro"
 # 首次运行可通过get_accounts()获取acct_id,然后直接赋值,减少重复获取。
 ACCOUNT_ID = 0
 
-#'Timestamp': '2017-06-02T06:13:49'
 
 def http_get_request(url, params, add_to_headers=None):
     headers = {
         "Content-type": "application/x-www-form-urlencoded",
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/39.0.2171.71 Safari/537.36',
     }
     if add_to_headers:
         headers.update(add_to_headers)
@@ -41,7 +41,7 @@ def http_get_request(url, params, add_to_headers=None):
         if response.status_code == 200:
             return response.json()
         else:
-            print(response.status_code)
+            print('http error: ', response.status_code)
             return
     except BaseException as e:
         print("httpGet failed, detail is:%s,%s" %(response.text,e))
