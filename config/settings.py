@@ -13,12 +13,17 @@ mdb = {
     # "port": '16538',
     "marketP1": 'dw_market',
     "M5": 'dw_M5',
+    "M15": 'dw_M15',
+    "M30": 'dw_M30',
     "D1": 'dw_D1',
     "H1": 'dw_H1',
+    "H4": 'dw_H4',
     "W1": 'dw_W1',
     "M1": 'dw_M1',
     "Y1": 'dw_Y1',
     "MON1": 'dw_MON1',
+    "depth": 'dw_depth',
+    "market_detail": 'dw_ticker_detail',
     "future": 'ok_future'
 }
 
@@ -34,3 +39,7 @@ dwD1_coll = sdb[mdb["D1"]]
 dwH1_coll = sdb[mdb["H1"]]
 dwW1_coll = sdb[mdb["W1"]]
 future_kline_coll = sdb[mdb["future"]]
+depth_coll = sdb[mdb["depth"]]
+detail_coll = sdb[mdb["market_detail"]]
+
+

@@ -64,7 +64,7 @@ if __name__ == '__main__':
                     continue
                 else:
                     print('返回的数据：', json_result)
-                    # print(json_result)
+                    print(json_result)
                     #send_to_mq(json_result)
                     #多线程处理，发送到mq 和 存储到txt，csv 流程并行执行
                     #threading.Thread(target=send_to_mq, args=([json_result])).start()
@@ -76,7 +76,8 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
             time.sleep(5)
-            ws = create_connection("wss://api.huobipro.com/ws")
+            # ws = create_connection("wss://api.huobipro.com/ws")
+            ws = create_connection("wss://api.huobi.br.com/ws")
             for topic in ticker_topic:
                 print(topic)
                 ws.send(topic)

@@ -116,19 +116,22 @@ class PlatformDataTypeIndex(Enum):
                 return PlatformDataTypeIndex.OKEX_FUTURE_DEPTH_DB_INDEX.value
 
 
-HUOBI_SYMBOL_LIST = ['btcusdt', 'bchusdt', 'ethusdt', 'ltcusdt', 'eosusdt', 'ethbtc', 'eosbtc', 'xrpusdt']
+HUOBI_SYMBOL_LIST = ['btcusdt', 'bchusdt', 'ethusdt', 'etcusdt', 'ltcusdt', 'eosusdt', 'ethbtc', 'eosbtc', 'xrpusdt']
 BINANCE_SYMBOL_LIST = ['BTCUSDT', 'BCCUSDT', 'ETHUSDT', 'LTCUSDT', 'EOSUSDT', 'ETHBTC', 'EOSBTC', 'XRPUSDT']
-OKEX_SYMBOL_LIST = ['btc_usdt', 'bch_usdt', 'eth_usdt', 'ltc_usdt', 'eos_usdt', 'eth_btc', 'eos_btc', 'xrp_usdt', 'bch_btc', "ltc_btc",  "xrp_btc", "bch_eth",  "ltc_eth", "eos_eth", "xrp_eth"]
+OKEX_SYMBOL_LIST = ['btc_usdt', 'bch_usdt', 'eth_usdt', 'ltc_usdt', 'eos_usdt', 'eth_btc', 'eos_btc', 'xrp_usdt',
+                    'bch_btc', "ltc_btc",  "xrp_btc", "bch_eth",  "ltc_eth", "eos_eth", "xrp_eth"]
 OKEX_FUTURE_SYMBOL_LIST = ['btc_usd', 'bch_usd', 'eth_usd', 'ltc_usd', 'eos_usd', None, None, 'xrp_usd']
 FCOIN_SYMBOL_LIST = ['btcusdt', 'bchusdt', 'ethusdt', 'ltcusdt', None, None, None, 'xrpusdt']
-STANDARD_SYMBOL_LIST = ["BTC/USDT", "BCH/USDT", "ETH/USDT", "LTC/USDT", "EOS/USDT", "ETH/BTC", "EOS/BTC", "XRP/USDT", "BCH/BTC", "LTC/BTC",  "XRP/BTC", "BCH/ETH",  "LTC/ETH", "EOS/ETH", "XRP/ETH"]
+STANDARD_SYMBOL_LIST = ["BTC/USDT", "BCH/USDT", "ETH/USDT", "ETC/USDT", "LTC/USDT", "EOS/USDT", "ETH/BTC", "EOS/BTC",
+                        "XRP/USDT", "BCH/BTC", "LTC/BTC",  "XRP/BTC", "BCH/ETH",  "LTC/ETH", "EOS/ETH", "XRP/ETH"]
 
-HUOBI_PERIOD_LIST = ['1min', '5min', '15min', '30min', '60min', '1day', '1week', '1mon', '1year']
+HUOBI_PERIOD_LIST = ['1min', '5min', '15min', '30min', '60min', '4hour', '1day', '1week', '1mon', '1year']
 BINANCE_PERIOD_LIST = ['', '', '', '', '', '', '', '']
 OKEX_PERIOD_LIST = ['', '', '', '', '', '', '', '', '', "",  "", "",  "", "", ""]
 OKEX_FUTURE_PERIOD_LIST = ['', '', '', '', '', '', '', '', '', "",  "", "",  "", "", ""]
 FCOIN_PERIOD_LIST = ['', '', '', '', '', '', '', '', '', "",  "", "",  "", "", ""]
-STANDARD_PERIOD_LIST = ["M1", "M5", "M15", "M30", "H1", "D1", "W1", "MON1", "Y1"]
+STANDARD_PERIOD_LIST = ["M1", "M5", "M15", "M30", "H1", "H4", "D1", "W1", "MON1", "Y1"]
+
 
 class Symbol(Enum):
     """
@@ -199,19 +202,19 @@ class Symbol(Enum):
         :param symbol:平台货币对
         :return:
         """
-        if (platform.value == Platform.PLATFORM_HUOBI.value):
+        if platform.value == Platform.PLATFORM_HUOBI.value:
             index = HUOBI_SYMBOL_LIST.index(symbol)
             return STANDARD_SYMBOL_LIST[index]
-        elif (platform.value == Platform.PLATFORM_BINANCE.value):
+        elif platform.value == Platform.PLATFORM_BINANCE.value:
             index = BINANCE_SYMBOL_LIST.index(symbol)
             return STANDARD_SYMBOL_LIST[index]
-        elif (platform.value == Platform.PLATFORM_OKEX.value):
+        elif platform.value == Platform.PLATFORM_OKEX.value:
             index = OKEX_SYMBOL_LIST.index(symbol)
             return STANDARD_SYMBOL_LIST[index]
-        elif (platform.value == Platform.PLATFORM_OKEX_FUTURE.value):
+        elif platform.value == Platform.PLATFORM_OKEX_FUTURE.value:
             index = OKEX_FUTURE_SYMBOL_LIST.index(symbol)
             return STANDARD_SYMBOL_LIST[index]
-        elif (platform.value == Platform.PLATFORM_FCOIN.value):
+        elif platform.value == Platform.PLATFORM_FCOIN.value:
             index = FCOIN_SYMBOL_LIST.index(symbol)
             return STANDARD_SYMBOL_LIST[index]
 
