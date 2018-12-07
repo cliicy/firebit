@@ -2,7 +2,7 @@ from gevent import monkey
 
 monkey.patch_all()
 import gevent
-from rest_vw_kline import CandleApp
+from vw_rs_kline import CandleApp
 from config.settings import symbol_list
 from common.enums import HUOBI_PERIOD_LIST
 

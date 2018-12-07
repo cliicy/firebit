@@ -1,5 +1,12 @@
 #  -*- coding:utf-8 -*-
 from enum import Enum, unique
+import datetime
+from dateutil import rrule
+import time
+
+def time_interval(start_date, end_date):
+    time_gap = rrule.rrule(rrule.HOURLY, dtstart=start_date, until=end_date)
+    return time_gap.count()
 
 
 @unique
@@ -302,13 +309,41 @@ class Symbol(Enum):
             return STANDARD_PERIOD_LIST[index]
 
 
+def cal_gap_time():
+    start_dt = datetime.datetime.now()
+    start_t = start_dt.strftime("%Y-%m-%d %H:%M:%S")
+    print("开始时间：", start_t)
+    for i in range(100):
+        time.sleep(3)
+    # 计算消耗的时间
+    end_dt = datetime.datetime.now()
+    end_t = end_dt.strftime("%Y-%m-%d %H:%M:%S")
+    interval = rrule.rrule(rrule.SECONDLY, dtstart=start_dt, until=end_dt).count()
+    print("结束时间：", end_t)
+    m, s = divmod(interval, 60)
+    h, m = divmod(m, 60)
+    print("总共消费的时间：%02d小时:%02d分钟:%02d秒" % (h, m, s))
+    print("总共消费的时间：{0} 秒".format(interval))
+
+
 if __name__ == '__main__':
-    cp_enum = Symbol.get_currency_pair(Platform.PLATFORM_OKEX, "eos_btc")
-    print(cp_enum)
-    cp = Symbol.convert_to_standard_symbol(Platform.PLATFORM_OKEX, "eos_btc")
-    print(cp)
-    cp = Symbol.convert_to_standard_symbol(Platform.PLATFORM_OKEX_FUTURE, "eos_usd")
-    print(cp)
+    # start_t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # start_t = datetime.datetime.now()
+    # for i in range(10):
+    #     pass
+    # # end_t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # end_t = datetime.datetime.now()
+    # interval = rrule.rrule(rrule.MINUTELY, dtstart=start_t, until=end_t).count()
+    # s = rrule.rrule(rrule.SECONDLY, dtstart=start_t, until=end_t).count()
+    # print(interval)
+    # print(s)
+    pass
+    # cp_enum = Symbol.get_currency_pair(Platform.PLATFORM_OKEX, "eos_btc")
+    # print(cp_enum)
+    # cp = Symbol.convert_to_standard_symbol(Platform.PLATFORM_OKEX, "eos_btc")
+    # print(cp)
+    # cp = Symbol.convert_to_standard_symbol(Platform.PLATFORM_OKEX_FUTURE, "eos_usd")
+    # print(cp)
     # symbol = Symbol.get_platform_symbol(Platform.PLATFORM_HUOBI, Symbol.BCH_USDT)
     # print(symbol)
     # symbol = Symbol.convert_to_platform_symbol(Platform.PLATFORM_OKEX, "EOS/BTC")

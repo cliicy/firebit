@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-
 symbol_list = ['ethusdt', 'btcusdt', 'bchusdt', 'ltcusdt', 'eosusdt', 'ethbtc', 'eosbtc', 'xrpusdt']
 period = ['1min', '5min', '15min', '30min', '60min', '4hour', '1day', '1week', '1mon']
 
@@ -23,6 +22,8 @@ mdb = {
     "Y1": 'dw_Y1',
     "MON1": 'dw_MON1',
     "depth": 'dw_depth',
+    "acc": 'accounts',
+    "bal": 'balance',
     "market_detail": 'dw_ticker_detail',
     "future": 'ok_future'
 }
@@ -41,5 +42,6 @@ dwW1_coll = sdb[mdb["W1"]]
 future_kline_coll = sdb[mdb["future"]]
 depth_coll = sdb[mdb["depth"]]
 detail_coll = sdb[mdb["market_detail"]]
-
+acc_coll = sdb[mdb["acc"]]
+balance_coll = sdb[mdb["bal"]]
 
