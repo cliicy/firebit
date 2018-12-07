@@ -343,3 +343,35 @@ class HuobiUtil(SignatureUtil):
             ret_bal.append(e)
         finally:
             return ret_bal
+
+    # def get_orders(self, keys_info, order_id):
+    def get_orders(self, **kargs):
+        """
+        :param keys_info:
+        :param order_id:
+        :return:
+        """
+        params = {}
+        path = "/v1/order/orders"
+        if "order_id" in kargs:
+            path = '{0}/{1}'.format(path, kargs['order_id'])
+        if "symbol" in kargs:
+            params.update({'symbol': kargs['symbol']})
+        if "states" in kargs:
+            params.update({'states': kargs['states']})
+        if "access_key" in kargs:
+            params.update({'ACCESS_KEY': kargs['access_key']})
+        if "secret_key" in kargs:
+            params.update({'SECRET_KEY': kargs['secret_key']})
+        rdata = None
+        try:
+            # print('查询订单的参数：', params)
+            url, params, headers_post = HuobiUtil().api_key_get_params_prepare(params, path)
+            # print('要查询账户余额信息的参数：', params)
+            rdata = HttpCommunicator().http_get(url=url, params=params, headers=headers_post)
+            # print('获取到的账户[{0}]余额信息：{1}'.format(acc_id, rdata))
+        except Exception as e:
+            print(e)
+            rdata = e
+        finally:
+            return rdata

@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 symbol_list = ['ethusdt', 'btcusdt', 'bchusdt', 'ltcusdt', 'eosusdt', 'ethbtc', 'eosbtc', 'xrpusdt']
 period = ['1min', '5min', '15min', '30min', '60min', '4hour', '1day', '1week', '1mon']
+orders_list = ['submitted', 'partial-filled', 'partial-canceled', 'filled', 'canceled']
 
 mdb = {
     "host": '172.24.132.208',
@@ -24,6 +25,7 @@ mdb = {
     "depth": 'dw_depth',
     "acc": 'accounts',
     "bal": 'balance',
+    "orders": 'orders',
     "market_detail": 'dw_ticker_detail',
     "future": 'ok_future'
 }
@@ -44,4 +46,5 @@ depth_coll = sdb[mdb["depth"]]
 detail_coll = sdb[mdb["market_detail"]]
 acc_coll = sdb[mdb["acc"]]
 balance_coll = sdb[mdb["bal"]]
+orders_coll = sdb[mdb["orders"]]
 

@@ -2,13 +2,76 @@
 
 import time
 from Utils import *
-from config.settings import acc_coll, balance_coll
+from config.settings import symbol_list, orders_list, acc_coll, balance_coll, orders_coll
 TRADE_SYMBOL_LIST = ['btc', 'bch', 'eth', 'ltc', 'eos', 'eth', 'xrp', 'usdt', 'btc', 'usd']
 
 key_info = []
 acc_info = acc_coll.find_one({"exchange": 'huobi', 'api': 'key'})
 key_info = get_apikeys(acc_info)
 platform = 'huobi'
+
+
+class OrdersApp:
+    def run(self, *args):
+        states = ''
+        for item in orders_list:
+            states += item + ','
+            sts = states.rstrip(',')
+        while True:
+            for item in symbol_list:
+                self.sync_orders_detail(symbol=item, states=sts,
+                                        access_key=key_info[0], secret_key=key_info[1])
+            time.sleep(3600)
+
+    @staticmethod
+    def sync_orders_detail(**kargs):
+        # 获取此账户及其下各个子账户中的所有的订单
+        ret = None
+        try:
+            ret = HuobiUtil().get_orders(**kargs)
+            # print(ret)
+            if 'status' in ret and ret['status'] == 'ok':
+                rdata = ret['data']
+                for one in rdata:
+                    ybdd = {}
+                    ybdd['order_id'] = rdata['id']
+                    ybdd['acc_id'] = rdata['account-id']
+                    ybdd['sym'] = rdata['symbol']
+                    ybdd['type'] = rdata['type']
+                    ybdd['field-amount'] = rdata['field-amount']
+                    ybdd['field-cash-amount'] = rdata['field-cash-amount']
+                    ybdd['price'] = rdata['price']
+                    ybdd['created-at'] = rdata['created-at']
+                    ybdd['state'] = rdata['state']
+                    orders_coll.update({'exchange': platform, 'api': 'orders', 'acc_id': ybdd['acc_id'],
+                                        'type': ybdd['type'], 'field-amount': ybdd['field-amount'],
+                                        'field-amount':  ybdd['field-amount'], 'order_id': ybdd['order_id'],
+                                        'field-amount': ybdd['field-amount'], 'sym': ybdd['sym'],
+                                        'field-cash-amount': ybdd['field-cash-amount'],
+                                        'price': ybdd['price'], 'created-at': ybdd['created-at']},
+                                       {'$set': {'state': ybdd['state']}}, True)
+                else:  # only for test
+                    ybdd = {}
+                    ybdd['order_id'] = '168888'
+                    ybdd['acc_id'] = '5632276'
+                    ybdd['sym'] = 'btcusdt'
+                    ybdd['type'] = 'buy-market'
+                    ybdd['field-amount'] = 1688
+                    ybdd['field-cash-amount'] = 1600
+                    ybdd['price'] = 4000
+                    ybdd['created-at'] = '20180101'
+                    ybdd['state'] = 'submitted'
+                    orders_coll.update({'exchange': platform, 'api': 'orders', 'acc_id': ybdd['acc_id'],
+                                        'type': ybdd['type'], 'field-amount': ybdd['field-amount'],
+                                        'field-amount': ybdd['field-amount'], 'order_id': ybdd['order_id'],
+                                        'field-amount': ybdd['field-amount'], 'sym': ybdd['sym'],
+                                        'field-cash-amount': ybdd['field-cash-amount'],
+                                        'price': ybdd['price'], 'created-at': ybdd['created-at']},
+                                       {'$set': {'state': ybdd['state']}}, True)
+        except Exception as e:
+            ret = e
+        finally:
+            return ret
 
 
 class BalanceApp:
@@ -89,7 +152,8 @@ class AccountApp:
 
 if __name__ == '__main__':
     # AccountApp().run()
-    BalanceApp().run()
+    # BalanceApp().run()
+    OrdersApp().run()
 
 
 
